@@ -6,6 +6,7 @@ import { useTimer } from "./util/customHooks";
 
 export default function App() {
   const [showModal, setShowModal] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [previousTime, setPreviousTime] = useState(null);
   const [bestTime, setBestTime] = useState(null);
 
@@ -28,10 +29,12 @@ export default function App() {
   function handleGameStart() {
     timerReset();
     timerStart();
+    setIsPlaying(true);
   }
 
   function handleGameEnd() {
     timerStop();
+    setIsPlaying(false);
 
     setPreviousTime(time);
 
@@ -46,7 +49,7 @@ export default function App() {
   return (
     <>
       <Header
-        time={time}
+        time={isPlaying ? time : null}
         previousTime={previousTime}
         bestTime={bestTime}
         openModal={() => setShowModal(true)}
